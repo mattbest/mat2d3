@@ -138,6 +138,10 @@ if isempty(d3Params)
     d3Params.margin = struct('top', [], 'right', [], 'bottom', [], ...
         'left', []);
 end;
+if ~isfield(d3Params, 'margin');
+    d3Params.margin = struct('top', [], 'right', [], 'bottom', [], ...
+        'left', []);
+end;
 
 if isempty(d3Params.margin.top)
     d3Params.margin.top = 20;
@@ -233,7 +237,7 @@ if strcmp(get(lineSeriesHandle, 'Marker'), '.')
         '\treturn yScale(d.y1);\n', ...
         '\t})\n', ...
         '\t.attr("r", %s);\n\n'], ...
-        num2str(i), num2str(get(lineSeriesHandle, 'markerSize')/2));
+        num2str(i), num2str(get(lineSeriesHandle, 'markerSize')/3));
 end;
 
 % close the tag from load data
