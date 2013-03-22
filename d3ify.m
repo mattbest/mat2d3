@@ -14,7 +14,10 @@ end;
 
 
 axisHandle = get(figureHandle, 'Children');
-lineSeriesHandles = get(axisHandle, 'Children');
+axisChildren = get(axisHandle, 'Children');
+lineSeriesIDXs = strcmp('line', get(get(axisHandle, 'Children'), 'Type'));
+lineSeriesHandles = axisChildren(lineSeriesIDXs);
+
 
 % write x and y data to csv(s)
 if numel(lineSeriesHandles) == 0
@@ -225,7 +228,7 @@ if strcmp(get(lineSeriesHandle, 'LineStyle'), '-')
 end;
 
 if strcmp(get(lineSeriesHandle, 'Marker'), '.')
-    fprintf(fid, ['\tsvg.selectAll("circle")\n', ...
+    fprintf(fid, ['\tsvg.selectAll("circle%s")\n', ...
         '\t.data(mydata)\n', ...
         '\t.enter()\n', ...
         '\t.append("circle")\n', ...
@@ -237,7 +240,8 @@ if strcmp(get(lineSeriesHandle, 'Marker'), '.')
         '\treturn yScale(d.y1);\n', ...
         '\t})\n', ...
         '\t.attr("r", %s);\n\n'], ...
-        num2str(i), num2str(get(lineSeriesHandle, 'markerSize')/3));
+        num2str(i), num2str(i), ...
+        num2str(get(lineSeriesHandle, 'markerSize')/3));
 end;
 
 % close the tag from load data
