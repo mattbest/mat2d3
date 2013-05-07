@@ -1,0 +1,29 @@
+<h1 id="mat2d3----a-matlab-toolkit-for-generating-d3.js-visualizations">mat2d3 -- a Matlab toolkit for generating d3.js visualizations</h1>
+<h2 id="syntax">syntax</h2>
+<pre><code>d3ify(figureHandle, saveFileName, d3Params)
+Inputs (default):
+  -- figureHandle (gcf)
+  -- saveFileName (&#39;d3ifyFigure&#39;): a string
+  -- d3Params: a structure containing the following fields (with subfields)
+        margin (top, right, bottom, left)
+        width
+        height
+
+Outputs:
+  -- index.html 
+  -- saveFileName.js
+  -- saveFileNameData.csv</code></pre>
+<h2 id="examples">examples</h2>
+<pre><code>% Ex 1
+x = 0:.01:2*pi;
+y = sin(x) + .25*randn(size(x));
+
+figure;
+plot(x, y, &#39;lineWidth&#39;, 2, &#39;color&#39;, [.25 .25 .75]);
+d3ify(gcf, &#39;mat2d3Test&#39;);
+
+% Ex 2</code></pre>
+<h2 id="notes">notes</h2>
+<p>Make sure that D3.js is in the same folder as the output files of <code>d3ify</code>, otherwise, you won't see anything.</p>
+<h2 id="supported-plot-options">supported plot options</h2>
+<p>The following name value pairs are transliterated by <code>d3ify</code>. When only a subset of a name's options are supported, the supported values are indicated by <code>Name -- 'val 1', 'val 2', etc</code>. ### plot ### LineStyle -- '-' LineWidth Color Marker -- '.' MarkerSize ### x(y) label ### String</p>
