@@ -1,7 +1,7 @@
-mat2d3 -- a Matlab toolkit for generating d3.js visualizations
+mat2d3 - a Matlab toolkit for generating d3.js visualizations
 ==============================================================
 
-mat2d3 aims to make it as simple as possible to translate a 2-d Matlab figure into a d3.js 
+mat2d3 aims to make it as simple as possible to translate a 2D Matlab figure into a d3.js visualization.  
 
 syntax
 ------
@@ -13,7 +13,7 @@ syntax
 		    margin (top, right, bottom, left)
 			width
 			height
-			plotType (cart): a string indicating whether the axes should be in cartesian or polar coordinates.  
+			plotType ('cart'): a string indicating whether the axes should be in cartesian or polar coordinates.  
 	
 	Outputs:
 	  -- index.html 
