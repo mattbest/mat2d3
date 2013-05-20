@@ -1,5 +1,45 @@
 function d3ify(figureHandle, saveFileName, d3Params)
 % Transliterate a matlab figure into a d3 visualization
+%
+% d3ify(figureHandle) generates the scaffolding for a d3.js visualization
+% specified by the figure handle, figureHandle
+%
+% d3ify(figureHandle, saveFileName) saves the output files with the string
+% saveFileName
+%
+% d3ify(figureHandle, saveFileName, d3Params) d3Params is a structure with
+% fields:
+%   margin (with subfields)
+%     top
+%     bottom
+%     left
+%     right
+%
+%   width -- output size in pixels
+%
+%   height -- output size in pixels
+%
+%   plotType {('cart'), 'polar'}
+%
+% Example 1
+%   x = 0:.01:2*pi;
+%   y = sin(x) + .25*randn(size(x));
+% 
+%   figure;
+%   plot(x, y, '.', 'markerSize', 8, 'color', [.25 .25 .75]);
+%   d3ify(gcf, 'mat2d3Test');
+% 
+% Example 2
+%   y = [sin(x); sin(x + pi/16); sin(x + pi/8); ...
+%       sin(x + 3*pi/16); sin(x + pi/4)];
+%   figure;
+%   set(gca, 'nextPlot', 'replaceChildren');
+%   set(gca, 'colorOrder', jet(5))
+%   plot(x, y, 'lineWidth', 2)
+%   d3ify(gcf, 'mat2d3Test')
+
+
+
 if nargin < 3
     d3Params = parseD3Params([]);
 else
@@ -354,11 +394,18 @@ if strcmp(d3Params.plotType, 'cart')
             num2str(get(lineSeriesHandle, 'markerSize')/3));
     end;
 elseif strcmp(d3Params.plotType, 'polar')
-    fprintf(fid, ...
-        ['svg.append("path")\n\t', ...
-        '.datum(mydata)\n\t', ...
-        '.attr("class", "line")\n\t', ...
-        '.attr("d", line);\n']);
+    if strcmp(get(lineSeriesHandle, 'LineStyle'), '-')
+        fprintf(fid, ...
+            ['svg.append("path")\n\t', ...
+            '.datum(mydata)\n\t', ...
+            '.attr("class", "line")\n\t', ...
+            '.attr("d", line);\n']);
+    end;
+    
+    if strcmp(get(lineSeriesHandle, 'Marker'), '.')
+        disp(['This plot option not yet supported; ', ...
+            'output may not function properly']);
+    end;
 end;
 
 % close the tag from load data
